@@ -1,0 +1,29 @@
+# Cursor
+DOMAIN-SUFFIX,cursor.com
+DOMAIN-SUFFIX,cursor.sh
+DOMAIN-SUFFIX,cursor-cdn.com
+DOMAIN-SUFFIX,cursorapi.com
+DOMAIN-SUFFIX,cursorvm.com
+
+# Grok and shared sign-in
+DOMAIN-SUFFIX,grok.com
+DOMAIN-SUFFIX,grokusercontent.com
+DOMAIN-SUFFIX,x.ai
+DOMAIN-SUFFIX,spacexsi.com
+DOMAIN,accounts.spacex.ai
+DOMAIN,auth.grokipedia.com
+
+# X and related media
+DOMAIN-SUFFIX,x.com
+DOMAIN-SUFFIX,twitter.com
+DOMAIN-SUFFIX,t.co
+DOMAIN-SUFFIX,twimg.com
+DOMAIN-SUFFIX,twimg.co
+DOMAIN-SUFFIX,twimg.org
+DOMAIN-SUFFIX,tweetdeck.com
+DOMAIN-SUFFIX,twitteroauth.com
+DOMAIN-SUFFIX,twitpic.com
+DOMAIN-SUFFIX,twttr.com
+DOMAIN-SUFFIX,twvid.com
+DOMAIN-SUFFIX,pscp.tv
+DOMAIN-SUFFIX,periscope.tv
