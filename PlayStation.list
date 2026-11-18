@@ -1,5 +1,18 @@
-# PlayStation routing rules for Shadowrocket (RULE-SET)
-# Shared CDN domains and third-party game servers are outside this list.
+# schema-version: 1
+# ruleset-id: playstation
+# services: ["PlayStation Network (PSN)","PlayStation Store","PlayStation Plus","PS Remote Play","PlayStation Portal"]
+# scope: PlayStation console platform domains for account sign-in, Store, games and patches, firmware, Remote Play, cloud streaming, and verified legacy services. Preserve existing Sony Interactive Entertainment ASN rules during domain-only updates.
+# excludes: Third-party game servers, peer-to-peer player addresses, shared CDN parent domains, and unrelated Sony products.
+# managed-rule-types: ["DOMAIN","DOMAIN-SUFFIX"]
+# format: Shadowrocket RULE-SET / Mihomo classical text
+# update-policy: Review daily using the sources below. Prefer first-party evidence. Keep verified rules when evidence is inconclusive. Preserve order and non-domain rules. Commit only when domain rules change.
+# source: https://www.playstation.com/en-us/support/
+# source: https://www.playstation.com/en-us/support/hardware/ps5/system-software/
+# source: https://status.playstation.com/
+# source: https://github.com/v2fly/domain-list-community/blob/master/data/playstation
+# source: https://www.netify.ai/resources/applications/playstation
+# source: https://www.peeringdb.org/net/3347
+# source: https://bgp.he.net/AS25562
 
 # PSN, Store, downloads, game patches, system updates, and Remote Play
 DOMAIN-SUFFIX,playstation.com
@@ -25,10 +38,3 @@ DOMAIN-SUFFIX,dnas.playstation.org
 # Sony Interactive Entertainment and its European network
 IP-ASN,33353,no-resolve
 IP-ASN,25562,no-resolve
-
-# References
-# https://www.playstation.com/en-us/support/hardware/ps5/system-software/
-# https://github.com/v2fly/domain-list-community/blob/master/data/playstation
-# https://www.netify.ai/resources/applications/playstation
-# https://www.peeringdb.org/net/3347
-# https://bgp.he.net/AS25562
