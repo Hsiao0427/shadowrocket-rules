@@ -1,0 +1,86 @@
+name: Update domain rules
+
+on:
+  schedule:
+    - cron: '17 9 * * *'
+      timezone: Asia/Shanghai
+  workflow_dispatch:
+    inputs:
+      apply_changes:
+        description: Publish any verified changes to main
+        type: boolean
+        default: false
+
+permissions: {}
+
+concurrency:
+  group: update-domain-rules
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    permissions:
+      contents: read
+    outputs:
+      has_changes: ${{ steps.plan.outputs.has_changes }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - id: plan
+        name: Check official sources and prepare changes
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          node scripts/update_rules.mjs plan "$RUNNER_TEMP/rules-plan.json"
+          if [ "$(jq length "$RUNNER_TEMP/rules-plan.json")" -gt 0 ]; then
+            echo 'has_changes=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'has_changes=false' >> "$GITHUB_OUTPUT"
+            echo 'No verified additions to publish.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: steps.plan.outputs.has_changes == 'true'
+        with:
+          name: rules-plan
+          path: ${{ runner.temp }}/rules-plan.json
+          retention-days: 3
+
+  publish:
+    needs: check
+    if: github.ref == 'refs/heads/main' && needs.check.outputs.has_changes == 'true' && (github.event_name == 'schedule' || inputs.apply_changes)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - uses: actions/download-artifact@v4
+        with:
+          name: rules-plan
+          path: ${{ runner.temp }}
+      - name: Verify the plan and publish only the rule files
+        run: |
+          git fetch origin refs/heads/main
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse FETCH_HEAD)" ]; then
+            echo 'Main changed during the run. Run again against the latest version.'
+            exit 1
+          fi
+          node scripts/update_rules.mjs apply "$RUNNER_TEMP/rules-plan.json"
+          git add -- SpaceX.list PlayStation.list
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -F "$RUNNER_TEMP/rules-plan.json.commit"
+          git push origin HEAD:main
