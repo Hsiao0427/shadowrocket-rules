@@ -1,0 +1,34 @@
+# PlayStation routing rules for Shadowrocket (RULE-SET)
+# Shared CDN domains and third-party game servers are outside this list.
+
+# PSN, Store, downloads, game patches, system updates, and Remote Play
+DOMAIN-SUFFIX,playstation.com
+DOMAIN-SUFFIX,playstation.net
+DOMAIN-SUFFIX,playstationnetwork.com
+DOMAIN-SUFFIX,sonyentertainmentnetwork.com
+DOMAIN-SUFFIX,playstation.com.cn
+DOMAIN-SUFFIX,playstation
+
+# PlayStation Plus cloud streaming and Sony delivery infrastructure
+DOMAIN-SUFFIX,playstation-cloud.com
+DOMAIN-SUFFIX,gaikai.com
+DOMAIN-SUFFIX,sbs.sony.net
+
+# Sony Interactive Entertainment and legacy PlayStation services
+DOMAIN-SUFFIX,sonyinteractive.com
+DOMAIN-SUFFIX,sie.com
+DOMAIN,sie.sony.com
+DOMAIN-SUFFIX,scea.com
+# Historical PS2 and PSP DNAS hosts. Service availability varies by title.
+DOMAIN-SUFFIX,dnas.playstation.org
+
+# Sony Interactive Entertainment and its European network
+IP-ASN,33353,no-resolve
+IP-ASN,25562,no-resolve
+
+# References
+# https://www.playstation.com/en-us/support/hardware/ps5/system-software/
+# https://github.com/v2fly/domain-list-community/blob/master/data/playstation
+# https://www.netify.ai/resources/applications/playstation
+# https://www.peeringdb.org/net/3347
+# https://bgp.he.net/AS25562
