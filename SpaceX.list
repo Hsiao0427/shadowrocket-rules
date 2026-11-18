@@ -1,3 +1,16 @@
+# schema-version: 1
+# ruleset-id: spacex
+# services: ["Cursor","Grok (xAI)","X (Twitter)"]
+# scope: First-party service domains for the Cursor editor and website, Grok chat/API and assets, X web/app and media, and official sign-in hosts shared by these services.
+# excludes: SpaceX aerospace, Starlink, Tesla, unrelated AI services, and shared identity or CDN domains without service-specific ownership.
+# managed-rule-types: ["DOMAIN","DOMAIN-SUFFIX"]
+# format: Shadowrocket RULE-SET / Mihomo classical text
+# update-policy: Review daily using the sources below. Prefer first-party evidence. Keep verified rules when evidence is inconclusive. Preserve order and non-domain rules. Commit only when domain rules change.
+# source: https://cursor.com/help/troubleshooting/network
+# source: https://cursor.com/help/troubleshooting/sign-in-domains
+# source: https://docs.x.ai/grok/overview
+# source: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Twitter/Twitter.list
+
 # Cursor
 DOMAIN-SUFFIX,cursor.com
 DOMAIN-SUFFIX,cursor.sh
